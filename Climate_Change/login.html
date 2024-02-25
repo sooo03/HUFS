@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="ko">
+    <head>
+        <head>
+            <meta charset="UTF-8">
+            <meta name="viewport" content="width=device-width, initial-scale=1.0">
+            <title>login_page</title>
+            <link rel="stylesheet" href="./login_style.css">
+            <link rel="preconnect" href="https://fonts.googleapis.com">
+            <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+            <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600;700&display=swap" rel="stylesheet">
+            <script src="https://kit.fontawesome.com/b17d4fa9e7.js" crossorigin="anonymous"></script>
+            <script defer src="./login.js"></script>
+        </head>
+    </head>
+    <body>
+        <nav class="navbar">
+            <div class="navbar__logo">
+                <a href="./index.html"><img src="./img/earth-banner.png"></a>
+            </div>
+
+            <ul class="navbar__menu">
+                <li><a href="./index.html">Home</a></li>
+                <li><a href="./problem.html">Problem</a></li>
+                <li><a href="./solution.html">Solution</a></li>
+                <li><a href="./movie_suggestion.html">Movie</a></li>
+                <li><a href="./login.html">Login</a></li>
+            </ul>
+            <ul class="navbar__icons">
+                <li><i class="fab fa-twitter"></i></li>
+                <li><i class="fab fa-facebook-f"></i></li>
+            </ul>
+        </nav>
+
+        <main id="main-holder">
+            <h1 id="login-header">Login</h1>            
+            <div id="login-error-msg-holder">
+              <p id="login-error-msg">Invalid username <span id="error-msg-second-line">and/or password</span></p>
+            </div>            
+            <form id="login-form">
+              <input type="text" name="username" id="username-field" class="login-form-field" placeholder="Username">
+              <input type="password" name="password" id="password-field" class="login-form-field" placeholder="Password">
+              <input type="submit" value="Login" id="login-form-submit">
+            </form>          
+        </main>
+    </body>
+</html>
