@@ -1,0 +1,12 @@
+***
+BST class에서 traversal에 대한 preorder, inorder, postorder 함수를 구현한다.
+- 기본연산, search, insert, deleteByMerging, deleteByCopying 함수를 구현한다.
+[주의1]: 노드를 삽입, 삭제하면서 몇 개의 노드에서는 height 정보가 변할 수 있으므로 삽입, 삭제 연산에서 height 정보를 update 해야함.
+[주의2]: insert 함수는 새로 삽입된 노드를 리턴해야 한다.(AVL 트리에서 사용됨)
+[주의3]: deleteByMerging과 deleteByCopying 함수는 height 정보가 변경될 가능성이 있는 가장 깊은 곳의 노드를 리턴해야 한다.(AVL 트리에서 사용됨)
+1. height(self, x): 노드 x의 높이를 리턴한다.(리프노드의 height는 0임)
+2. succ(self, x): key 값의 오름차순의 순서상 노드 x.key의 다음 key 값의 노드 (successor)를 리턴한다. 다음 노드가 없다면 None 리턴
+3. pred(self, x): key 값의 오름차순 순서상 노드 x.key의 이전 key 값의 노드 (predecessor)를 리턴한다. 이전 노드가 없다면 None 리턴
+4. rotateLeft(self, z): 노드 z를 기준으로 left rotate한다.
+5. rotateRight(self, z): 노드 z를 기준으로 right rotate한다.
+***

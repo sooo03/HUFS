@@ -1,0 +1,136 @@
+'''
+n개의 노드로 구성된 이진트리를 세 개의 리스트에 저장한다.
+노드 번호는 1부터 n 사이의 정수로 노드의 key 값을 의미한다.
+parent[v]에는 v의 부모 노드 번호를 저장한다.
+left[v]와 right[v]는 각각 v의 왼쪽과 오른쪽 자식노드가 저장된다.
+부모노드와 자식노드가 없을 때에는 0이 저장된다.
+리스트에 저장하지 않고 트리의 Node 클래스를 선언해서 표현해도 된다.
+[입력]
+-첫 줄: 노드 개수 n (1<=n<=10000)
+-두 번째 줄부터 각 노드 v와 v의 두 자식 노드의 정보가 주어진다.
+-v 1 r 인 경우, v의 왼쪽과 오른쪽 자식노드가 각각 1과 r이다. 만약, 해당 자식노드가 없다면 0
+'''
+'''
+is_ancestor(u, v): u가 v의 조상노드이면 True, 아니면 False 리턴
+depth(v): v의 깊이를 리턴(루트노드의 깊이는 0이고, 레벨이 하나 증가할 때마다 깊이는 1 증가)
+preorder(v), postorder(v): 각각 v의 preorder와 postorder의 방문 시간을 리턴(루트노드의 방문 시간은 1로 가정)
+lca(u, v): u와 v의 LCA(Lowest Common Ancestor) 노드 번호를 리턴
+'''
+
+def preorder(v):
+    cnt = 0
+    stack = []  # Stack
+
+    stack.append(root)  # Push root
+    while len(stack) > 0:
+        parent = stack.pop()
+        cnt += 1
+        if parent == v:
+            return cnt
+
+        if right[parent] != 0:
+            stack.append(right[parent])
+        if left[parent] != 0:
+            stack.append(left[parent])
+
+
+def postorder(v):
+    cnt = -1
+    stack = []  # Stack
+    res = []  # Output stack
+
+    stack.append(root)
+    while len(stack) > 0:
+        node = stack.pop()
+        cnt += 1
+        if node == v:
+            return n - cnt
+
+        res.append(node)
+        if left[node] != 0:
+            stack.append(left[node])
+        if right[node] != 0:
+            stack.append(right[node])
+						
+
+def depth(v):
+    ancestors_v = get_ancestors(v)
+    return len(ancestors_v) - 1
+
+
+def is_ancestor(u, v):
+    ancestors_v = get_ancestors(v)
+    if u in ancestors_v:
+        return True
+    return False
+
+
+def lca(u, v):
+    ancestors_u = get_ancestors(u)
+    ancestors_v = get_ancestors(v)
+    for ancestor_u in ancestors_u:
+        if ancestor_u in ancestors_v:
+            return ancestor_u
+
+
+def is_root(u):  # Node u가 루트인지 아닌지 판단
+    # 부모 노드가 없으면 루트
+    if parent[u] == 0:
+        return True
+    return False
+
+
+def get_ancestors(v):  # 노드 v와 그의 조상을 모두 찾아서 반환함
+    ancestors_list = []  # v의 조상을 모두 저장하는 리스트
+    i = v
+    while i != 0:  # i가 루트에 도달할 때까지 반복
+        ancestors_list.append(i)
+        i = parent[i]
+    return ancestors_list
+
+
+# 입력 처리 부분 (여기에)
+n = int(input())  # Number of nodes
+parent = [0 for _ in range(n + 1)]  # Parent list
+left = [0 for _ in range(n + 1)]  # Left list
+right = [0 for _ in range(n + 1)]  # Right list
+
+for _ in range(n):
+    p, l, r = map(int, input().split())
+    parent[l] = p
+    parent[r] = p
+    left[p] = l
+    right[p] = r
+
+
+# 전처리 코드 부분 (여기에)
+root = -1  # Root node
+for i in range(1, n + 1):
+    if is_root(i):
+        root = i
+        break
+
+#
+# 명령 처리 부분으로 아래는 수정 하지 말 것!
+#
+while True:
+    cmd = input().split()
+    if cmd[0] == "exit":
+        break
+    elif cmd[0] == "preorder":
+        res = preorder(int(cmd[1]))
+        print(f"  > preorder({int(cmd[1])}) = {res}")
+    elif cmd[0] == "postorder":
+        res = postorder(int(cmd[1]))
+        print(f"  > postorder({int(cmd[1])}) = {res}")
+    elif cmd[0] == "depth":
+        res = depth(int(cmd[1]))
+        print(f"  > depth({int(cmd[1])}) = {res}")
+    elif cmd[0] == "is_ancestor":
+        res = is_ancestor(int(cmd[1]), int(cmd[2]))
+        print(f"  > {int(cmd[1])} is {'an' if res else 'not an'} ancestor of {int(cmd[2])}")
+    elif cmd[0] == "lca":
+        res = lca(int(cmd[1]), int(cmd[2]))
+        print(f"  > lca({int(cmd[1])}, {int(cmd[2])}) = {res}")
+    else:
+        print("illegal command")
